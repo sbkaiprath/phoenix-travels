@@ -8,7 +8,7 @@ class Layout extends React.Component{
     state={
         show: false
     }
-    cclicked=()=>{
+    clicked=()=>{
         this.setState((preState)=>({
             show:!preState.show
         }))
@@ -18,9 +18,9 @@ class Layout extends React.Component{
         return(
             <div>
             <Modal show={this.state.show} clicked={this.clicked}>
-
+              
             </Modal>
-            <NavbarMain/>
+            <NavbarMain clicked={this.clicked}/>
             <Home/>
             </div>
         )
