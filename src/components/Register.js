@@ -22,7 +22,7 @@ const RegisterForm=(props)=>{
 			</div>
 			<div>
 				<input type="submit" value="Register" />
-				<a href="/">Login</a>
+				<a href="/login" style={{textDecoration:"none",color:"green",fontSize:16}}>Login</a>
 			</div>
 		</form>
 	</section>

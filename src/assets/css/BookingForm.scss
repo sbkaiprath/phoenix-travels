@@ -1,0 +1,70 @@
+@import "bourbon@5.*";
+@import "modularscale@3.*";
+@import "breakpoint";
+
+body, html {
+		margin: 0 auto 1em auto;
+		background: whitesmoke;
+		padding: 0;
+}
+[role=banner] {
+	
+		margin: 0 auto 1em auto;
+		background: whitesmoke;
+	
+		padding: 2em 0;
+	line-height: 1.5;
+	* {
+		line-height: 1.25 !important;
+		margin-top: 0 !important;
+		margin-bottom: 0.5rem !important;
+	}
+	hgroup {
+		text-align: center;
+		margin: 0 auto 1em auto;
+		background: whitesmoke;
+		padding: 0;
+	}
+	h2 {
+		// display: inline !important;
+		h3, small {
+			display: inline !important;
+			// float: right !important;
+		}
+	}
+}
+main {
+	background: white;
+	border-radius: 4px;
+	box-shadow: 0 8px 16px -4px rgba(gray, 0.25);
+}
+
+.form-element {
+	margin-bottom: 1.5rem !important;
+	label {
+		line-height: 1 !important;
+		font-size: small !important;
+		margin-bottom: 0 !important;
+		padding: 0 !important;
+		margin-top: 0 !important;
+		
+		
+		
+	}
+	input {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+	}
+}
+
+label, p {
+	font-weight: 700 !important;
+	font-size: small !important;
+	line-height: 1.5 !important;
+	margin-bottom: 0.5rem !important;
+	color: #777 !important;
+	text-transform: uppercase !important;
+	span {
+		font-weight: 700 !important;
+	}
+}

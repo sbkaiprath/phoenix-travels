@@ -18,7 +18,7 @@ const LoginForm=(props)=>{
 			</div>
 			<div>
 				<input type="submit" value="Log in" />
-				<a href="/register">Register</a>
+				<a href="/register" style={{textDecoration:"none",color:"green",fontSize:16}}>Register</a>
 			</div>
 		</form>
 	</section>

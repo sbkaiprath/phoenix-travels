@@ -1,13 +1,15 @@
 import React from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import "../App.css";
+import   '../assets/css/OrderButton.css'
+
 // import tours from "../components/Package";
 import imgCard1 from "../img/img-card (1).jpg";
 import imgCard2 from "../img/img-card (2).jpg";
 import imgCard3 from "../img/img-card (3).jpg";
 import imgCard4 from "../img/img-card (4).jpg";
 
-const Tour = () => (
+const Tour = (props) => (
   <div className="subComponent">
     <Container>
       <section className="tour-cover item-center">
@@ -64,6 +66,7 @@ const Tour = () => (
             </div>
           </Col>
         </Row>
+        <button className="OrderButton" onClick={()=>props.history.push("/tour/booking")}>Book Now</button>
       </section>
     </Container>
     <section className="reviews">
