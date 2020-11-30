@@ -8,6 +8,7 @@ import Bookingform from './pages/Bookingform';
 import Layout from './components/Layout'
 
 import Tour from "./pages/Tour";
+import Mybooking from './pages/Mybooking'
 
 class App extends Component {
 
@@ -17,7 +18,8 @@ class App extends Component {
      <Router>
        <Route path="/login" component={LoginForm}/>
        <Route path="/register" component={RegisterForm}/>
-       <Route path="/home" component={Layout}/>
+       <Route path="/home" exact component={Layout}/>
+       <Route path="/home/mybookings"  component={Mybooking}/>
        <Route path="/tour"  exact component={Tour}/>
        <Route path="/tour/booking"  component={Bookingform}/>
      </Router>

@@ -1,0 +1,63 @@
+body,
+html {
+  margin: 0 auto 1em auto;
+  background: whitesmoke;
+  padding: 0;
+}
+
+[role="banner"] {
+  margin: 0 auto 1em auto;
+  background: whitesmoke;
+  padding: 2em 0;
+  line-height: 1.5;
+}
+[role="banner"] * {
+  line-height: 1.25 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.5rem !important;
+}
+[role="banner"] hgroup {
+  text-align: center;
+  margin: 0 auto 1em auto;
+  background: whitesmoke;
+  padding: 0;
+}
+[role="banner"] h2 h3,
+[role="banner"] h2 small {
+  display: inline !important;
+}
+
+main {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px -4px rgba(128, 128, 128, 0.25);
+}
+
+.form-element {
+  margin-bottom: 1.5rem !important;
+}
+.form-element label {
+  line-height: 1 !important;
+  font-size: small !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+}
+.form-element input {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+label,
+p {
+  font-weight: 700 !important;
+  font-size: small !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.5rem !important;
+  color: #777 !important;
+  text-transform: uppercase !important;
+}
+label span,
+p span {
+  font-weight: 700 !important;
+}

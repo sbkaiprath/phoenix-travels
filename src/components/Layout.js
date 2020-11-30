@@ -35,7 +35,7 @@ class Layout extends React.Component{
             {this.renderRedirect()}
               <Cardcomponent clicked={this.clicked} continue={this.setRedirect}/>
             </Modal>
-            <NavbarMain clicked={this.clicked}/>
+            <NavbarMain clicked={this.clicked} home={this.setRedirect}/>
             <Home/>
             </div>
         )

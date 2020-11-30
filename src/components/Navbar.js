@@ -53,6 +53,8 @@ class NavbarMain extends React.Component {
                 <NavItem>
                   <NavLink href="#contactBody">Contact</NavLink>
                 </NavItem>
+                <Button color="primary" onClick={this.props.clicked}>My Bookings</Button>
+                &nbsp; &nbsp; 
                 <Button color="success" onClick={this.props.clicked}>Logout</Button>
               </Nav>
             </Collapse>

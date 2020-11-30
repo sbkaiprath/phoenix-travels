@@ -1,13 +1,12 @@
 import React from 'react';
-import  '../assets/css/BookingForm.scss';
+import  '../assets/css/BookingForm.css';
 
 const Bookingform = (props) => {
     return (
         <div >
             <header role="banner">
 		<hgroup>
-			<h1>Hotel Reservation Form</h1>
-			<h2>In its most primitive form. <h3><small>(Pun intended.)</small></h3></h2>
+			<h1>Booking Form</h1>
 		</hgroup>
           </header>
 
