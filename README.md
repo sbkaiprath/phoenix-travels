@@ -31,4 +31,4 @@ can only view tours.
 - Back end
   - NodeJS
 - Database
-  - MongoDB
+  - MySQL
