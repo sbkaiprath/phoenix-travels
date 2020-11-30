@@ -9,16 +9,16 @@ const RegisterForm=(props)=>{
 		<form action="">
 			<h1>Register Form</h1>
 			<div>
-				<input type="text" placeholder="Username" required="" id="username" />
+				<input type="text" placeholder="Username" required id="username" />
 			</div>
             <div>
-				<input type="text" placeholder="Name" required="" id="name" />
+				<input type="text" placeholder="Name" required id="name" />
 			</div>
 			<div>
-				<input type="password" placeholder="Password" required="" id="password" />
+				<input type="password" placeholder="Password" required id="password" />
 			</div>
             <div>
-				<input type="password" placeholder="Confirm Password" required="" id="confirm-password" />
+				<input type="password" placeholder="Confirm Password" required id="confirm-password" />
 			</div>
 			<div>
 				<input type="submit" value="Register" />

@@ -11,6 +11,7 @@ import {
   Button
 } from "reactstrap";
 import "../App.css";
+import {Redirect} from 'react-router-dom';
 
 class NavbarMain extends React.Component {
   constructor(props) {
@@ -21,6 +22,21 @@ class NavbarMain extends React.Component {
       isOpen: false
     };
   }
+
+  state={
+    redirect:false
+}
+
+    setRedirect = () => {
+        this.setState({
+          redirect: true
+        })
+      }  
+      
+      renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/home/mybookings' />
+        }}
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -53,7 +69,8 @@ class NavbarMain extends React.Component {
                 <NavItem>
                   <NavLink href="#contactBody">Contact</NavLink>
                 </NavItem>
-                <Button color="primary" onClick={this.props.clicked}>My Bookings</Button>
+                {this.renderRedirect()}
+                <Button color="primary" onClick={this.setRedirect}>My Bookings</Button>
                 &nbsp; &nbsp; 
                 <Button color="success" onClick={this.props.clicked}>Logout</Button>
               </Nav>

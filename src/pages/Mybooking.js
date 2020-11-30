@@ -29,7 +29,7 @@ render(){
          <br/>
          <Bookingcard/>
          {this.renderRedirect()}
-         <button onClick={this.setRedirect} >Go back Home</button>
+         <button onClick={this.setRedirect}  style={{color:"white",border: "2px solid black",borderRadius:"10px",backgroundColor:"black",padding:"10px",marginLeft:"45%",marginTop:"20px"}}>Go back Home</button>
 
     </div>)
     

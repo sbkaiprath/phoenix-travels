@@ -9,12 +9,13 @@ const LoginForm=(props)=>{
 <div className="container">
 	<section id="content">
 		<form action="/home">
-			<h1>Login Form</h1>
+			<h1>Phoenix Travels</h1>
+            <h1>Login</h1>
 			<div>
-				<input type="text" placeholder="Username" required="" id="username" />
+				<input type="text" placeholder="Username" required id="username"/>
 			</div>
 			<div>
-				<input type="password" placeholder="Password" required="" id="password" />
+				<input type="password" placeholder="Password" required id="password"/>
 			</div>
 			<div>
 				<input type="submit" value="Log in" />

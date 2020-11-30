@@ -52,7 +52,7 @@ class Footer extends Component {
             </Row>
             <hr />
             <br />
-            <p>copyright 2019 | Manila Tourism Philippines</p>
+            <p>copyright 2020 | Phoenix Travels, Ernakulam</p>
           </footer>
         </Container>
       </div>
