@@ -13,7 +13,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}));
 
 //models declaration
-const User=require('./models/user');
 const Tourpackage=require('./models/Tourpackage');
 
 
@@ -47,7 +46,7 @@ app.use(logger("dev"));
 const tourpackage=require("./routes/tourpackage");
 
 //routes
-//app.use("/api/",user);
+app.use("/api/tourpackage",tourpackage);
 
 const PORT=process.env.PORT || 5000
 
