@@ -4,11 +4,10 @@ A working in progress web based application for travels.
 
 ## Functionality
 
-The Tourism site promote Tourist spot with latest detailed information to help and provide tourist the best quality Tours.
-Provide the Trending and Popular Tours.
+A Travels website where user can book resort and other utilities directely through logging in
 
 **Admin**
-has full access of the tourism site.
+has full access of the travels site.
 
 - Add Tours requested by registered users.
 - Remove Tours if needed.
@@ -18,6 +17,7 @@ has full access of the tourism site.
 has partial access to the tourism site.
 
 - Be able to share tours in social media
+- Can book their accomodation
 
 
 ## Tech Stack to be Use
@@ -25,6 +25,6 @@ has partial access to the tourism site.
 - Front end
   - React with Reactstrap
 - Back end
-  - NodeJS
+  - NodeJS express.js with Serialize.js
 - Database
-  - MySQL
+  - MySQL 
