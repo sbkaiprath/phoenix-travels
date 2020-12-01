@@ -1,6 +1,6 @@
-# Tourism Site
+# Phoenix Travels
 
-A working in progress web based app that promote Tourist Spot.
+A working in progress web based application for travels.
 
 ## Functionality
 
@@ -17,12 +17,8 @@ has full access of the tourism site.
 **Registered User**
 has partial access to the tourism site.
 
-- Send a request tours
-- Like, rate, and comment in tours
 - Be able to share tours in social media
 
-**Guest User**
-can only view tours.
 
 ## Tech Stack to be Use
 
@@ -31,4 +27,4 @@ can only view tours.
 - Back end
   - NodeJS
 - Database
-  - MongoDB
+  - MySQL
