@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend api phoenix-travels",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV= production node server",
+    "dev": "nodemon server"
+  },
+  "author": "Sooraj",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
+  }
+}
