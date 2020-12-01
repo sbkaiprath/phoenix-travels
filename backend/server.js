@@ -2,9 +2,8 @@ const express= require("express");
 const dotenv=require("dotenv")
 const logger=require("morgan")
 
-
+const sequelize=require('./config/db');
 const app=express()
-const sequelize=require('./config/db')
 
 //loads all env variables
 dotenv.config({path:"./config/config.env"});
@@ -12,6 +11,10 @@ dotenv.config({path:"./config/config.env"});
 //Body parsing
 app.use(express.json())
 app.use(express.urlencoded({extended:false}));
+
+//models declaration
+const User=require('./models/user');
+const Tourpackage=require('./models/Tourpackage');
 
 
 //connecting to database
@@ -26,14 +29,22 @@ const connectDb=async()=>{
 connectDb()
 
 //syncing models sequelize
-/*const db=require('./models/index');
-db.sequelize.sync()*/
+const syncModel=async()=>{
+    try{
+        await Tourpackage.sync({force:true});
+        console.log('Successfully synced all models');
+        }catch(err){
+            console.error('Failed in syncing models',err)
+        }
+        
+}
+syncModel()
 
 //Initialize morgan
 app.use(logger("dev"));
 
 //Initialize routes
-const user=require("./routes/user");
+const tourpackage=require("./routes/tourpackage");
 
 //routes
 //app.use("/api/",user);

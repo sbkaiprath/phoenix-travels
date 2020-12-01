@@ -1,18 +1,20 @@
-module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("user", {
-      firstName: {
-        type: Sequelize.STRING
+const {DataTypes}=require('sequelize')
+const sequelize=require('../config/db');
+
+const User=sequelize.define('user',{
+    firstName: {
+        type: DataTypes.STRING
       },
       secondName: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       email: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       address: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       }
-    });
-  
-    return User;
-  };
+});
+// `sequelize.define` also returns the model
+console.log(User === sequelize.models.User);
+module.exports=User;

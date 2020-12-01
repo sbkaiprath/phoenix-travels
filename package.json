@@ -1,5 +1,5 @@
 {
-  "name": "tourism-site",
+  "name": "phoenix-travels",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -25,5 +25,18 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "A working in progress web based app that promote Tourist Spot.",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbkaiprath/phoenix-travels.git"
+  },
+  "author": "Sooraj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sbkaiprath/phoenix-travels/issues"
+  },
+  "homepage": "https://github.com/sbkaiprath/phoenix-travels#readme"
 }
