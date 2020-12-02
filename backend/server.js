@@ -15,6 +15,8 @@ app.use(express.urlencoded({extended:false}));
 //models declaration
 const Tourpackage=require('./models/Tourpackage');
 const Booking=require('./models/Booking');
+const User=require('./models/User');
+const Image=require('./models/Image')
 
 
 //connecting to database
@@ -31,8 +33,10 @@ connectDb()
 //syncing models sequelize
 const syncModel=async()=>{
     try{
-        await Tourpackage.sync({force:true});
+        await Tourpackage.sync();
         await Booking.sync({force:true});
+        await User.sync({force:true});
+        await Image.sync()
         console.log('Successfully synced all models');
         }catch(err){
             console.error('Failed in syncing models',err)

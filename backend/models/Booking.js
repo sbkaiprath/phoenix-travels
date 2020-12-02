@@ -2,12 +2,7 @@ const {DataTypes}=require('sequelize')
 const sequelize=require('../config/db');
 
 const Bookings=sequelize.define('booking',{
-    id:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:true,
-        primaryKey:true
-    },
+    
     address:{
         type:DataTypes.STRING,
         allowNull:false
