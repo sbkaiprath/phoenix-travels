@@ -1,7 +1,7 @@
 const express= require("express");
 const dotenv=require("dotenv")
 const logger=require("morgan")
-
+const path=require('path')
 const sequelize=require('./config/db');
 const app=express()
 
@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended:false}));
 
 //models declaration
 const Tourpackage=require('./models/Tourpackage');
+const Booking=require('./models/Booking');
 
 
 //connecting to database
@@ -31,6 +32,7 @@ connectDb()
 const syncModel=async()=>{
     try{
         await Tourpackage.sync({force:true});
+        await Booking.sync({force:true});
         console.log('Successfully synced all models');
         }catch(err){
             console.error('Failed in syncing models',err)
@@ -47,6 +49,11 @@ const tourpackage=require("./routes/tourpackage");
 
 //routes
 app.use("/api/tourpackage",tourpackage);
+
+
+
+//Declaring static file
+app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT=process.env.PORT || 5000
 
