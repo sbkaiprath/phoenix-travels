@@ -1,7 +1,9 @@
 const asyncHandler=require('../middlewares/async')
 const Tourpackage=require('../models/Tourpackage');
 const ErrorResponce = require('../utils/ErrorResponce');
-const path=require('path');
+const fs=require('fs');
+const Image=require('../models/Image')
+const path=require('path')
 
 
 //CREATE TOURPACKAGE
@@ -90,55 +92,50 @@ exports.deleteAllTour=asyncHandler(async(req,res,next)=>{
 //POST Tourpackages add photo
 //Private @admin
 
+/*exports.addPhotoTourPackage = (req, res) => {  
+    Image.create({
+      type: req.file.mimetype,
+      name: req.file.originalname,
+      data: fs.readFileSync(path.join('./public/uploads') + req.file.filename)
+    }).then(image => {
+      try{
+        fs.writeFileSync(path.join( './public/tmp')+ image.name, image.data);    
+        
+        // exit node.js app
+        res.json({'msg': 'File uploaded successfully!', 'file': req.file});
+      }catch(e){
+        console.log(e);
+        res.json({'err': e});
+      }
+    })
+  };*/
+
 exports.addPhotoTourPackage = asyncHandler(async (req, res, next) => {
 
-    const tour = await Tourpackage.findByPk(req.params.id);
-    if (!tour) {
-        return next(new ErrorResponce(`Tour package not found with id ${req.params.id}`, 404));
-    }
+      
+          console.log(req.file);
+      
+          if (req.file === undefined) {
+            return res.send(`You must select a file.`);
+          }
 
-    if (!req.files) {
-        return next(new ErrorResponce(`Please add a file`, 400));
-    }
+          const image=await Image.create({
+            type: req.file.mimetype,
+            name: req.file.originalname,
+            data: fs.readFileSync(
+             "../public/uploads" + req.file.filename
+            ),
+          });
 
-    //Check if the person owns the bootcamp for updating photo
-    /*if (tour.user.id !== req.user.id || req.user.role !== 'admin') {
-        return next(new ErrorResponce(`User with id ${req.user.id} is authorized to use`))
+          fs.writeFileSync(
+            "../public/tmp" + image.name,
+             image.data
+           );
+          if(!image){
+              return next(new ErrorResponce(`Error when trying upload images: `,404))
+          }
 
-    }*/
-
-    //Declare a fileUpload variable
-    const doc = req.files.file;
-
-    //Checking if the file is photo(Validation)
-    if (!doc.mimetype.startsWith('image')) {
-        return next(new ErrorResponce(`Please upload a image`, 400));
-    }
-
-    //Checking file upload size
-    if (doc.size > process.env.MAX_FILE_UPLOAD) {
-        return next(new ErrorResponce(`Cannot be uploaded file size is high`, 404));
-    }
-
-    //Creating custom file name
-    doc.name = `photo_${tour.id}${path.parse(doc.name).ext}`;
-
-    doc.mv(`${process.env.FILE_UPLOAD_PATH}/${doc.name}`, async err => {
-        if (err) {
-            console.log(err);
-            return next(new ErrorResponce(`Unable to upload the file`, 404));
-
-        }
-
-        await Tourpackage.update({imageURL:doc.name},{
-            where:{id:req.params.id}
-        });
-
-        res.status(200).json({
-            success: true,
-            photo: doc.name
-        })
-    })
+          res.send(`File has been uploaded.`);
 
 
 });

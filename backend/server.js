@@ -1,16 +1,17 @@
 const express= require("express");
 const dotenv=require("dotenv")
 const logger=require("morgan")
-const path=require('path')
+//const path=require('path')
 const sequelize=require('./config/db');
 const app=express()
+const cookieparser=require('cookie-parser');
 
 //loads all env variables
 dotenv.config({path:"./config/config.env"});
 
 //Body parsing
 app.use(express.json())
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
 
 //models declaration
 const Tourpackage=require('./models/Tourpackage');
@@ -33,10 +34,11 @@ connectDb()
 //syncing models sequelize
 const syncModel=async()=>{
     try{
+        await User.sync();
+        await Image.sync({force:true})
         await Tourpackage.sync();
         await Booking.sync({force:true});
-        await User.sync({force:true});
-        await Image.sync()
+       
         console.log('Successfully synced all models');
         }catch(err){
             console.error('Failed in syncing models',err)
@@ -54,10 +56,12 @@ const tourpackage=require("./routes/tourpackage");
 //routes
 app.use("/api/tourpackage",tourpackage);
 
+//cookie parser
+app.use(cookieparser())
 
 
 //Declaring static file
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public/uploads/')));
 
 const PORT=process.env.PORT || 5000
 

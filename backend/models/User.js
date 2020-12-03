@@ -1,7 +1,8 @@
 const {DataTypes}=require('sequelize')
 const sequelize=require('../config/db');
-const Booking=require('./Booking');
-const Tourpackage=require('./Tourpackage')
+const bcrypt=require('bcryptjs')
+const jwt = require('jsonwebtoken');
+//const crypto = require('crypto');
 
 const User=sequelize.define('user',{
     name:{
@@ -17,16 +18,35 @@ const User=sequelize.define('user',{
       validate:{
         isEmail:true
       },
-      password:{
-        type:DataTypes.STRING,
-      },
-      age:{
-        type:DataTypes.INTEGER
-      }
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    last_login: {
+        type: DataTypes.DATE
+    },
+
+    status: {
+        type: DataTypes.ENUM('active', 'inactive'),
+        defaultValue: 'active'
+    }
     }
 });
-User.hasMany(Booking,{foreignKey:'user',allowNull:false});
-User.hasMany(Tourpackage,{foreignKey:'admin'})
+
+User.addHook('beforeCreate',async(user,next)=>{
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
+});
+
+User.prototype.jwtWebToken=async function(){
+  return jwt.sign({ id: this.id }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRES_IN })
+}
+
+User.prototype.matchPassword=async function(enteredPassword){
+  return await bcrypt.compare(enteredPassword, this.password);
+}
 // `sequelize.define` also returns the model
 console.log(User === sequelize.models.User);
 module.exports=User;

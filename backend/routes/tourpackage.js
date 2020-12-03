@@ -2,11 +2,12 @@ const express=require('express');
 
 const {createTourPackage,getAllTourpackages,
     getSinglePAckage,updateTour,deleteAllTour
-    ,deleteSingleTour}=require('../controller/tourpackage');
+    ,deleteSingleTour,addPhotoTourPackage}=require('../controller/tourpackage');
+const upload=require('../middlewares/upload')    
     
 const router=express.Router();
 
 router.route('/').get(getAllTourpackages).post(createTourPackage).delete(deleteAllTour);
 router.route('/:id').get(getSinglePAckage).put(updateTour).delete(deleteSingleTour);
-//router.route('/:id/photo').put(addPhotoTourPackage);
+router.post('/upload', upload.single("uploadfile"), addPhotoTourPackage);
 module.exports=router;
