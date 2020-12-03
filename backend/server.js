@@ -35,7 +35,7 @@ connectDb()
 const syncModel=async()=>{
     try{
         await User.sync();
-        await Image.sync({force:true})
+        await Image.sync()
         await Tourpackage.sync();
         await Booking.sync({force:true});
        

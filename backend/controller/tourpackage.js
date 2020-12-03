@@ -3,7 +3,6 @@ const Tourpackage=require('../models/Tourpackage');
 const ErrorResponce = require('../utils/ErrorResponce');
 const fs=require('fs');
 const Image=require('../models/Image')
-const path=require('path')
 
 
 //CREATE TOURPACKAGE

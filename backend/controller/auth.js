@@ -1,0 +1,128 @@
+const User=require('../models/User')
+const asyncHandler=require('../middlewares/async')
+const ErrorResponce=require('../utils/ErrorResponce');
+
+
+
+//@desc Create user
+//@router POST /api/user
+//@access Public
+exports.register = asyncHandler(async (req, res, next) => {
+
+    const { name, email, password, role } = req.body;
+
+    //Create a User
+    const user = await User.create({ name, email, password, role });
+
+    if (!user) {
+        return next(new ErrorResponce(`Entered invalid entry`, 404));
+    }
+    sendbackCookie(200, res, user);
+
+
+});
+
+//@desc Login User
+//@router GET /api/user/login
+//@access Private
+exports.loginUser = asyncHandler(async (req, res, next) => {
+
+    const { email, password } = req.body;
+
+    //Checking basic validation for email and password
+    if (!email || !password) {
+        return next(new ErrorResponce('Please enter a email and a password :', 400));
+    }
+
+    //Checking for user in db
+    const user = await User.findByPk({ email }).select('+password');
+
+    if (!user) {
+        return next(new ErrorResponce('Invalid credientials', 401));
+    }
+
+    //Match passwords
+    const isMatch = await user.matchPassword(password);
+
+    if (!isMatch) {
+        return next(new ErrorResponce('Invalid credientials', 401));
+    }
+    sendbackCookie(200, res, user);
+
+});
+
+
+//@desc Current User
+//@router GET /api/user/me
+//@access Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+    const user = await User.findByPk(req.user.id);
+
+    if (!user) {
+        return next(new ErrorResponce(`Some error has Occured`, 404));
+    }
+    res.status(200).json({
+        success: true,
+        user
+    })
+});
+
+//@desc Current User
+//@router /api/v1/user/me
+//@access Private
+exports.logoutUser = asyncHandler(async (req, res, next) => {
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true
+    });
+
+    res.status(200).json({ success: true, data: {} })
+});
+
+
+//@desc Update Details
+//@router PUT /api/user/updatedetails
+//@access Private
+exports.updateDetails = asyncHandler(async (req, res, next) => {
+    let updateContent = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    const user =await User.update(updateContent,{
+        where:{id:req.params.id}
+    });
+
+    if (!user) {
+        return next(new ErrorResponce(`Some error has Occured`, 404));
+    }
+    res.status(200).json({
+        success: true,
+        user
+    })
+});
+
+
+//Create a cookie from create user and login
+const sendbackCookie = (statusCode, res, user) => {
+
+    //Creating jwt web token
+    const token = user.getJWTwebToken();
+
+    const options = {
+        expires: new Date(Date.now + process.env.COOKIE_EXPIRE_IN * 24 * 60 * 60 * 1000),
+        httpOnly: true
+    }
+
+    if (process.env.NODE_ENV === "production") {
+        options.secure = true;
+    }
+
+    res.status(statusCode)
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            token
+        })
+
+}
