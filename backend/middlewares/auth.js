@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const asyncHandler = require('../middleware/async');
+const asyncHandler = require('../middlewares/async');
 const ErrorResponce = require('../utils/ErrorResponce');
 
 exports.protect = asyncHandler(async (req, res, next) => {
@@ -27,8 +27,8 @@ exports.protect = asyncHandler(async (req, res, next) => {
     //Verify the token 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        // console.log(decoded);
-        req.user = await User.findById(decoded.id);
+       req.user= await User.findByPk(decoded.id)
+       //console.log(req.user)
         next();
     } catch (error) {
         return next(new ErrorResponce(`Not authorized to access the request`, 401));

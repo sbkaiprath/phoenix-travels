@@ -9,10 +9,10 @@ const ErrorResponce=require('../utils/ErrorResponce');
 //@access Public
 exports.register = asyncHandler(async (req, res, next) => {
 
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role,username } = req.body;
 
     //Create a User
-    const user = await User.create({ name, email, password, role });
+    const user = await User.create({ name, email, password, role,username });
 
     if (!user) {
         return next(new ErrorResponce(`Entered invalid entry`, 404));
@@ -28,6 +28,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 exports.loginUser = asyncHandler(async (req, res, next) => {
 
     const { email, password } = req.body;
+    const status='active';
 
     //Checking basic validation for email and password
     if (!email || !password) {
@@ -35,7 +36,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     }
 
     //Checking for user in db
-    const user = await User.findByPk({ email }).select('+password');
+    const user = await User.findOne({where: {email}});
 
     if (!user) {
         return next(new ErrorResponce('Invalid credientials', 401));
@@ -47,6 +48,13 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     if (!isMatch) {
         return next(new ErrorResponce('Invalid credientials', 401));
     }
+    const currentdate=new Date();
+        await User.update({status:status,lastLogin:currentdate.getDate() + "/"
+        + (currentdate.getMonth()+1)  + "/" 
+        + currentdate.getFullYear() + " @ "  
+        + currentdate.getHours() + ":"  
+        + currentdate.getMinutes() + ":" 
+        + currentdate.getSeconds()},{where:{id: user.id}})
     sendbackCookie(200, res, user);
 
 });
@@ -56,7 +64,8 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
 //@router GET /api/user/me
 //@access Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-    const user = await User.findByPk(req.user.id);
+    const user = await User.findByPk(req.user.id)
+    console.log(user)
 
     if (!user) {
         return next(new ErrorResponce(`Some error has Occured`, 404));
@@ -75,6 +84,8 @@ exports.logoutUser = asyncHandler(async (req, res, next) => {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true
     });
+    const status='inactive';
+    await User.update({status},{where:{id: req.user.id}})
 
     res.status(200).json({ success: true, data: {} })
 });
@@ -107,7 +118,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
 const sendbackCookie = (statusCode, res, user) => {
 
     //Creating jwt web token
-    const token = user.getJWTwebToken();
+    const token = user.jwtWebToken();
 
     const options = {
         expires: new Date(Date.now + process.env.COOKIE_EXPIRE_IN * 24 * 60 * 60 * 1000),

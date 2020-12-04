@@ -37,7 +37,7 @@ const syncModel=async()=>{
         await User.sync();
         await Image.sync()
         await Tourpackage.sync();
-        await Booking.sync({force:true});
+        await Booking.sync();
        
         console.log('Successfully synced all models');
         }catch(err){
@@ -52,9 +52,11 @@ app.use(logger("dev"));
 
 //Initialize routes
 const tourpackage=require("./routes/tourpackage");
+const auth=require('./routes/auth')
 
 //routes
 app.use("/api/tourpackage",tourpackage);
+app.use("/api/user",auth);
 
 //cookie parser
 app.use(cookieparser())
