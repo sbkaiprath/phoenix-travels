@@ -5,9 +5,13 @@ const logger=require("morgan")
 const sequelize=require('./config/db');
 const app=express()
 const cookieparser=require('cookie-parser');
+const cors=require('cors')
 
 //loads all env variables
 dotenv.config({path:"./config/config.env"});
+
+//Cors
+app.use(cors());
 
 //Body parsing
 app.use(express.json())
@@ -47,16 +51,23 @@ const syncModel=async()=>{
 }
 syncModel()
 
+//associations
+User.hasMany(Booking);
+Image.hasOne(Tourpackage);
+Tourpackage.hasOne(Booking);
+
 //Initialize morgan
 app.use(logger("dev"));
 
 //Initialize routes
 const tourpackage=require("./routes/tourpackage");
 const auth=require('./routes/auth')
+const booking=require('./routes/booking');
 
 //routes
 app.use("/api/tourpackage",tourpackage);
 app.use("/api/user",auth);
+app.use("/api/booking",booking)
 
 //cookie parser
 app.use(cookieparser())

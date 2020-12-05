@@ -1,7 +1,7 @@
 const {DataTypes}=require('sequelize')
 const sequelize=require('../config/db');
 const User=require('./User')
-const Image=require('./Image')
+const Tourpackage=require('./Tourpackage')
 
 const Bookings=sequelize.define('booking',{
     
@@ -55,6 +55,7 @@ const Bookings=sequelize.define('booking',{
       },
       userId:{
           type:DataTypes.INTEGER,
+          allowNull:false,
           references:{
               model:User,
               key:'id'
@@ -63,7 +64,7 @@ const Bookings=sequelize.define('booking',{
       imageId:{
         type:DataTypes.INTEGER,
         references:{
-            model:Image,
+            model:Tourpackage,
             key:'id'
         }}
 });

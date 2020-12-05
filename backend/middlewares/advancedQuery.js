@@ -1,4 +1,5 @@
-//File to retrieve advanced query results from url
+//File to retrieve advanced query results from ur
+
 
 const advancedQueryResults = (model) => async (req, res, next) => {
     //Declaring a query variable
@@ -8,7 +9,7 @@ const advancedQueryResults = (model) => async (req, res, next) => {
     var reqQuery = { ...req.query };
 
     //Fields to execute
-    const removeQuery = ['select', 'sort', 'limit'];
+    const removeQuery = ['select'];
 
     //Removing query from the url
     removeQuery.forEach(param => delete reqQuery[param]);
@@ -18,7 +19,7 @@ const advancedQueryResults = (model) => async (req, res, next) => {
     let queryStr = JSON.stringify(reqQuery);
 
     //Finding the specified resource from the database
-    query = model.find(JSON.parse(queryStr));
+    query = model.findOneA(JSON.parse(queryStr));
 
     //Select operator finding 
     if (req.query.select) {
@@ -29,13 +30,13 @@ const advancedQueryResults = (model) => async (req, res, next) => {
 
     }
 
-    //Sort function
+    /*//Sort function
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join(' ');
         query = query.sort(sortBy);
     } else {
         query = query.sort('-createdAt')
-    }
+    }*/
 
 
     //Number of datas for sliding
