@@ -112,29 +112,21 @@ exports.deleteAllTour=asyncHandler(async(req,res,next)=>{
 exports.addPhotoTourPackage = asyncHandler(async (req, res, next) => {
 
       
-          console.log(req.file);
-      
-          if (req.file === undefined) {
-            return res.send(`You must select a file.`);
-          }
+ 
+    console.log(req.file);
 
-          const image=await Image.create({
-            type: req.file.mimetype,
-            name: req.file.originalname,
-            data: fs.readFileSync(
-             "../public/uploads" + req.file.filename
-            ),
-          });
+    if (req.file === undefined) {
+      return res.send(`You must select a file.`);
+    }
 
-          fs.writeFileSync(
-            "../public/tmp" + image.name,
-             image.data
-           );
-          if(!image){
-              return next(new ErrorResponce(`Error when trying upload images: `,404))
-          }
+   await Image.create({
+      type: req.file.mimetype,
+      name: req.file.filename,
+      data: fs.readFileSync(
+        process.env.FILE_UPLOAD_PATH + req.file.filename
+      ),
+    });
 
-          res.send(`File has been uploaded.`);
-
-
-});
+      return res.send(`File has been uploaded.`);
+    });
+ 

@@ -6,7 +6,8 @@ const sequelize=require('./config/db');
 const app=express()
 const cookieparser=require('cookie-parser');
 const cors=require('cors')
-const error=require('./middlewares/error')
+const error=require('./middlewares/error');
+const path=require('path')
 
 //loads all env variables
 dotenv.config({path:"./config/config.env"});
@@ -77,10 +78,8 @@ app.use(cookieparser())
 //Initilizing error handler
 app.use(error);
 
-
-
 //Declaring static file
-//app.use(express.static(path.join(__dirname, 'public/uploads/')));
+app.use(express.static(path.join(__dirname, 'public/uploads/')));
 
 const PORT=process.env.PORT || 5000
 

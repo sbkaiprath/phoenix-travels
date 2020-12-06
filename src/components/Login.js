@@ -32,7 +32,7 @@ axios.post('http://localhost:5000/api/user/login', user)
 				console.log(res.data);
 				this.props.history.push({
 					pathname:"/home",
-					state:{data:res.data}
+					state:res.data
 				})
             }).catch((error) => {
                 alert("Invalid username or password");
