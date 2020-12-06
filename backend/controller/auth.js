@@ -8,6 +8,7 @@ const ErrorResponce=require('../utils/ErrorResponce');
 //@router POST /api/user
 //@access Public
 exports.register = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
 
     const { name, email, password, role,username } = req.body;
 
@@ -133,7 +134,8 @@ const sendbackCookie = (statusCode, res, user) => {
         .cookie('token', token, options)
         .json({
             success: true,
-            token
+            token,
+            user
         })
 
 }

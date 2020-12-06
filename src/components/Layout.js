@@ -12,6 +12,7 @@ class Layout extends React.Component{
         show: false,
         redirect:false
     }
+    
     clicked=()=>{
         this.setState((preState)=>({
             show:!preState.show
@@ -25,17 +26,17 @@ class Layout extends React.Component{
       
       renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/login' />
+          return <Redirect to='/' />
         }}
     render(){
-        
+    const data=this.props.location.state;
         return(
             <div>
             <Modal show={this.state.show} clicked={this.clicked}>
             {this.renderRedirect()}
               <Cardcomponent clicked={this.clicked} continue={this.setRedirect}/>
             </Modal>
-            <NavbarMain clicked={this.clicked} home={this.setRedirect}/>
+            <NavbarMain clicked={this.clicked} home={this.setRedirect} name={data.user.name}/>
             <Home/>
             </div>
         )

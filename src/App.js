@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div>
      <Router>
-       <Route path="/login" component={LoginForm}/>
+       <Route path="/"  exact component={LoginForm}/>
        <Route path="/register" component={RegisterForm}/>
        <Route path="/home" exact component={Layout}/>
        <Route path="/home/mybookings"  component={Mybooking}/>

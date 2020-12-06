@@ -1,4 +1,4 @@
-/*const ErrorResponce = require('../utils/errorResponce')
+const ErrorResponce = require('../utils/ErrorResponce')
 
 const errorHandler = (err, req, res, next) => {
     let error = { ...err }
@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
     error.message = err.message;
 
     //log into error
-    console.log(err);
+    console.log(err.message);
 
     //Moongose wrong ObjectId
     if (err.name === 'CastError') {
@@ -15,9 +15,9 @@ const errorHandler = (err, req, res, next) => {
     }
 
     //Mongoose error duplicate keys
-    if (err.code === 11000) {
-        const message = `Duplicate fields are found`;
-        error = new ErrorResponce(message, 400);
+    if (err.statusCode === 401) {
+        const message = `Invalid Credientials`;
+        error = new ErrorResponce(message, 401);
     }
 
     //Mongoose vaidation error
@@ -25,8 +25,8 @@ const errorHandler = (err, req, res, next) => {
         const message = Object.values(err.errors).map(val => val.message);
         error = new ErrorResponce(message, 400)
     }
-
+    //console.log(error.message);
     res.status(error.statusCode || 500).json({ success: false, error: error.message || 'Item not found' });
 }
 
-module.exports = errorHandler;*/
+module.exports = errorHandler;
