@@ -68,11 +68,13 @@ app.use(logger("dev"));
 const tourpackage=require("./routes/tourpackage");
 const auth=require('./routes/auth')
 const booking=require('./routes/booking');
+const review=require('./routes/review')
 
 //routes
 app.use("/api/tourpackage",tourpackage);
 app.use("/api/user",auth);
 app.use("/api/booking",booking)
+app.use("/api/reviews",review)
 
 //cookie parser
 app.use(cookieparser())

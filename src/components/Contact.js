@@ -4,8 +4,45 @@ import "../App.css";
 import { ReactComponent as Phone } from "../assets/svg/phone.svg";
 import { ReactComponent as MapPin } from "../assets/svg/map-pin.svg";
 import { ReactComponent as Mail } from "../assets/svg/mail.svg";
+import axios from 'axios';
 
 class Contact extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email:"",
+      name:"",
+      message:"",
+      config :{
+        headers: { Authorization: `Bearers ${document.cookie}` }
+    
+      }
+}
+  this.handleSubmit = this.handleSubmit.bind(this);
+}
+
+onChange(e) {
+this.setState({[e.target.name]: e.target.value})
+} 
+
+
+handleSubmit= (event)=>{
+
+event.preventDefault();
+
+const contact={
+email:this.state.email,
+name:this.state.name,
+message:this.state.message
+}
+axios.post('http://localhost:5000/api/reviews',contact,this.state.config)
+        .then((res) => {
+    console.log(res.data);
+    alert("Thank You for submitting your review. This will help us in improving")
+        }).catch((error) => {
+            alert("Error occured while adding review");
+        });}
+
   render() {
     return (
       <div className="subComponent-lg" id="contactBody">
@@ -39,31 +76,31 @@ class Contact extends Component {
           <hr />
           <br />
           <section className="msg text-center">
-            <form action="">
+            <form onSubmit={this.handleSubmit}>
               <Row>
                 <Col sm="6">
                   <input
                     type="text"
-                    name="Name"
+                    name="name"
                     id="reviewer-name"
                     placeholder="Your Name"
-                    required
+                    required onChange={(e)=>this.onChange(e)}
                   />
                   <br />
                   <input
                     type="email"
-                    name="Email"
+                    name="email"
                     id="reviewer-email"
                     placeholder="Your email"
-                    required
+                    required onChange={(e)=>this.onChange(e)}
                   />
                 </Col>
                 <Col>
                   <textarea
-                    name="Message"
+                    name="message"
                     id="reviewer-message"
                     rows="4"
-                    placeholder="Your Message"
+                    placeholder="Your Message" onChange={(e)=>this.onChange(e)}
                   />
                   <Button outline color="light" className="float-left">
                     Send Message

@@ -14,11 +14,9 @@ class Layout extends React.Component{
         show: false,
         redirect:false,
      config :{
-      headers: { Authorization: `Bearers ${document.token}` }
+      headers: { Authorization: `Bearers ${document.cookie}` }
   
     }}
-     
-  
     
     clicked=()=>{
         this.setState((preState)=>({
@@ -42,9 +40,10 @@ class Layout extends React.Component{
         axios.get("http://localhost:5000/api/user/logout",this.state.config).then(res=>{
           alert('Succesfully Logged Out')
           document.user=""
+          document.cookie=""
          this.setRedirect()
         }).catch((err)=>{
-          alert('Failed in logging Out')
+          alert(err)
         })}
     render(){
     
