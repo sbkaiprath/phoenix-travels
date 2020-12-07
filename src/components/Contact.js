@@ -39,6 +39,7 @@ axios.post('http://localhost:5000/api/reviews',contact,this.state.config)
         .then((res) => {
     console.log(res.data);
     alert("Thank You for submitting your review. This will help us in improving")
+    this.setState({});
         }).catch((error) => {
             alert("Error occured while adding review");
         });}

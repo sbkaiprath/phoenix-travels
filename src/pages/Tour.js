@@ -76,7 +76,7 @@ class Tour extends React.Component {
           </Col>
         </Row>
         <h3>Rs {item.price}</h3>
-        <button className="OrderButton" onClick={()=>this.props.history.push("/tour/booking")}>Book Now</button>
+        <button className="OrderButton" onClick={()=>this.props.history.push({pathname:"/tour/booking",state:item})}>Book Now</button>
         <Button outline color="primary" className="float-right" onClick={this.setRedirect}>
               Go Home
             </Button>
