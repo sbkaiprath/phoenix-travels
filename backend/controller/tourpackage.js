@@ -9,6 +9,8 @@ const Image=require('../models/Image')
 //private @admin only
 exports.createTourPackage=asyncHandler(async(req,res,next)=>{
 
+req.body.adminId=req.user.id;
+
 const tour= await Tourpackage.create(req.body);
 
 if (!tour){
@@ -24,12 +26,23 @@ res.status(201).json({success: true,data:tour});
 
 exports.getAllTourpackages=asyncHandler(async(req,res,next)=>{
 
-const tour= await Tourpackage.findAll();
+var tour= await Tourpackage.findAll();
 
 if(!tour){
     return next(new ErrorResponce(`Error in retrieving the tour`,406));
 }
-res.status(200).json({success: true,data:tour});
+
+for(let item of tour){
+  const image=await Image.findByPk(item.imageId);
+  if(!image){
+    return next(new ErrorResponce(`Error in retrieving the image`,406));
+}
+  item.imageId=image.name;
+}
+
+
+
+res.status(200).send({success:true,data: tour})
 
 });
 
@@ -111,8 +124,6 @@ exports.deleteAllTour=asyncHandler(async(req,res,next)=>{
 
 exports.addPhotoTourPackage = asyncHandler(async (req, res, next) => {
 
-      
- 
     console.log(req.file);
 
     if (req.file === undefined) {

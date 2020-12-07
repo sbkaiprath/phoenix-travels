@@ -14,7 +14,7 @@ class Layout extends React.Component{
         show: false,
         redirect:false,
      config :{
-      headers: { Authorization: `Bearers ${this.props.location.state.token}` }
+      headers: { Authorization: `Bearers ${document.token}` }
   
     }}
      
@@ -40,8 +40,8 @@ class Layout extends React.Component{
         handleLogout=()=>{
         console.log(this.state.config.headers.Authorization)
         axios.get("http://localhost:5000/api/user/logout",this.state.config).then(res=>{
-          
           alert('Succesfully Logged Out')
+          document.user=""
          this.setRedirect()
         }).catch((err)=>{
           alert('Failed in logging Out')
@@ -54,7 +54,7 @@ class Layout extends React.Component{
             {this.renderRedirect()}
               <Cardcomponent clicked={this.clicked} continue={this.handleLogout}/>
             </Modal>
-            <NavbarMain clicked={this.clicked} home={this.setRedirect} name={this.props.location.state.user.name} />
+            <NavbarMain clicked={this.clicked} home={this.setRedirect} name={document.user.name} />
             <Home/>
             </div>
         )

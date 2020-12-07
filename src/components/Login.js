@@ -30,10 +30,13 @@ const user={
 axios.post('http://localhost:5000/api/user/login', user)
             .then((res) => {
 				console.log(res.data);
+				document.cookie=res.data.token
+				document.user=res.data.user
 				this.props.history.push({
 					pathname:"/home",
 					state:res.data
-				})
+				});
+				
             }).catch((error) => {
                 alert("Invalid username or password");
             });}

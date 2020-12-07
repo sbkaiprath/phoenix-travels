@@ -23,7 +23,8 @@ app.use(express.urlencoded({extended:true}));
 const Tourpackage=require('./models/Tourpackage');
 const Booking=require('./models/Booking');
 const User=require('./models/User');
-const Image=require('./models/Image')
+const Image=require('./models/Image');
+const Review=require('./models/Review')
 
 
 //connecting to database
@@ -44,6 +45,7 @@ const syncModel=async()=>{
         await Image.sync()
         await Tourpackage.sync();
         await Booking.sync();
+        await Review.sync()
        
         console.log('Successfully synced all models');
         }catch(err){

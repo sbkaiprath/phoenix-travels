@@ -123,7 +123,7 @@ const sendbackCookie = (statusCode, res, user) => {
 
     const options = {
         expires: new Date(Date.now + process.env.COOKIE_EXPIRE_IN * 24 * 60 * 60 * 1000),
-        httpOnly: true
+        httpOnly: false,secure:false
     }
 
     if (process.env.NODE_ENV === "production") {

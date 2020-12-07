@@ -2,37 +2,46 @@ import React from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import "../App.css";
 import   '../assets/css/OrderButton.css'
-
-// import tours from "../components/Package";
 import imgCard1 from "../img/img-card (1).jpg";
 import imgCard2 from "../img/img-card (2).jpg";
 import imgCard3 from "../img/img-card (3).jpg";
 import imgCard4 from "../img/img-card (4).jpg";
+import {Redirect} from 'react-router-dom';
 
-const Tour = (props) => (
-  <div className="subComponent">
+class Tour extends React.Component {
+
+  state={
+    redirect:false
+  }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }  
+  
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/home' />
+    }}
+  render(){
+  const item=this.props.location.state;
+  const url="http://localhost:5000/" + item.imageId;
+  return(
+<div className="subComponent">
     <Container>
+    {this.renderRedirect()}
       <section className="tour-cover item-center">
-        <img src={imgCard1} alt="" />
-        <h1>Seaside Resort</h1>
-        <h4>Batangas Resort</h4>
+        <img src={url} alt="" />
+        <h1>{item.packageName}</h1>
+        <h4>Wonderful Resort</h4>
       </section>
       <section className="tour-info">
         <Row>
           <Col sm="8">
             <div className="tour-desc">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                imperdiet, sem id vehicula lacinia, mi purus lacinia mauris,
-                vitae mollis nisl elit in lorem. Suspendisse potenti. Cras
-                elementum ullamcorper tortor, rutrum convallis nunc tempor
-                tristique. Donec ut ipsum vel mauris hendrerit efficitur. Nullam
-                eget massa interdum, euismod nunc ac, maximus risus. Aliquam nec
-                rhoncus tortor. Suspendisse nulla diam, hendrerit a metus vitae,
-                rutrum hendrerit nisl. Nulla vel venenatis massa. Mauris lacinia
-                porttitor ex, a egestas nisi fringilla vitae. Nam fringilla leo
-                ante, id interdum sapien facilisis vel. Morbi ut suscipit nulla.
-                Sed vitae tempus elit, at laoreet urna.
+              { this.props.location.state.packageDescription}
               </p>
               <p>
                 Morbi facilisis, odio vitae egestas pretium, mauris tortor
@@ -66,7 +75,11 @@ const Tour = (props) => (
             </div>
           </Col>
         </Row>
-        <button className="OrderButton" onClick={()=>props.history.push("/tour/booking")}>Book Now</button>
+        <h3>Rs {item.price}</h3>
+        <button className="OrderButton" onClick={()=>this.props.history.push("/tour/booking")}>Book Now</button>
+        <Button outline color="primary" className="float-right" onClick={this.setRedirect}>
+              Go Home
+            </Button>
       </section>
     </Container>
     <section className="reviews">
@@ -110,6 +123,8 @@ const Tour = (props) => (
       </Container>
     </section>
   </div>
-);
+  )}
+  
+  };
 
 export default Tour;
