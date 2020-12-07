@@ -16,7 +16,6 @@ has full access of the travels site.
 **Registered User**
 has partial access to the tourism site.
 
-- Be able to share tours in social media
 - Can book their accomodation
 
 
