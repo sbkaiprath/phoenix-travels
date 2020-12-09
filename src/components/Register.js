@@ -48,7 +48,7 @@ console.log(err)
 }*/
 axios.post('http://localhost:5000/api/user/register', user)
             .then((res) => {
-                console.log(res.data)
+                alert("You have Successfully registered !!")
             }).catch((error) => {
                 console.log(error)
             });

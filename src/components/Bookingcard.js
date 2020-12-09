@@ -1,26 +1,23 @@
 import React from 'react';
 import {
-  Card, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle
+  Card, Button, CardImg, CardTitle, CardText, CardDeck,
+  CardSubtitle, CardBody
 } from 'reactstrap';
-import  '../assets/css/Card.css'
+import image1 from '../img/img-card (1).jpg'
 
 const Example = (props) => {
   return (
-    <div className="card">
-      <Card>
+    <CardDeck>
+      <Card style={{margin:" 50px 400px"}}>
+        <CardImg top width="50%" src={image1} alt="Card image cap" />
         <CardBody>
           <CardTitle tag="h5">Card title</CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>
-        </CardBody>
-        <img  src="https://api.time.com/wp-content/uploads/2019/08/better-smartphone-photos.jpg" alt="An image"/>
-        <CardBody>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <CardLink href="#">Card Link</CardLink>
-          <CardLink href="#">Another Link</CardLink>
+          <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
+          <Button>Button</Button>
         </CardBody>
       </Card>
-    </div>
+    </CardDeck>
   );
 };
 

@@ -16,6 +16,7 @@ constructor(props) {
 		  room:"",
 		  checkintime:"",
 		  checkouttime:"",
+		  id:"",
 		  roomtype:"",
 		  config :{
 			headers: { Authorization: `Bearers ${document.cookie}` }
@@ -30,7 +31,7 @@ constructor(props) {
 	} 
 	
 	
-	handleSubmit= (event)=>{
+	handleSubmit= (event,item)=>{
 	
 	event.preventDefault();
 	
@@ -42,13 +43,14 @@ constructor(props) {
 		phone:this.state.Mobile,
 		checkIndate:this.state.checkin,
 		checkOutdate:this.state.checkout,
-		numberRooms:this.state.room,
+		numberRooms:parseInt(this.state.room),
 		checkIntime:this.state.checkintime.toString(),
 		checkOutime:this.state.checkouttime.toString(),
 		roomType:this.state.roomtype.toString(),
-		imageId:this.props.location.state.id
+		imageId:this.props.location.state.id,
+		
 	}
-	console.log(this.state)
+	console.log(this.props.location.state.id)
 	axios.post('http://localhost:5000/api/booking/',book,this.state.config)
 			.then((res) => {
 		console.log(res.data);
@@ -59,7 +61,7 @@ constructor(props) {
 			});}
 	render(){
 		const item=this.props.location.state;
-		console.log(item)
+		//console.log(item)
 		return (
 			<div style={{textAlign:"center",padding:"50px 400px",background:"green"}}>
 			<Jumbotron fluid >
@@ -176,7 +178,7 @@ constructor(props) {
 				  <option>Suite</option>
 				</Input>
 			  </FormGroup>
-			  <Button type="submit" size="lg" outline color="info">Large Button</Button>{' '}
+			  <Button type="submit" size="lg" outline color="info">Submit</Button>{' '}
 			</Form>
 			
 			</div>

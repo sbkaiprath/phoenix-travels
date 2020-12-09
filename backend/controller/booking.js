@@ -22,12 +22,17 @@ res.status(201).json({success: true,data:book});
 
 exports.getAllBookings=asyncHandler(async(req,res,next)=>{
 
-    const tour= await Booking.findAll();
-
-    if(!tour){
+let book={};
+if(req.user.role!=="admin"){
+     book= await Booking.findAll({where:{userId:req.user.id}});
+}
+else {
+    book=await Booking.findAll();
+}
+ if(!book){
         return next(new ErrorResponce(`Error in retrieving the tour`,406));
     }
-    res.status(200).json({success: true,data:tour});
+    res.status(200).json({success: true,data:book});
 
 });
 
